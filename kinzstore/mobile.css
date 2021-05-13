@@ -1,0 +1,53 @@
+@media only screen and (max-width: 600px) {
+
+    .employee-payment {
+        position:static;
+        text-align: center;
+        padding:10px 40px;
+        background-color: white;
+        border: 2px solid rgb(252, 219, 219);
+        border-radius: 10px;
+    }
+
+    .inventory {
+        border-radius:5px;
+        padding: 5px;
+        margin: 0px 10px;
+        background-color: rgb(252, 219, 219);
+    }
+
+    .total-inventory {
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 10px;
+    }
+
+    .inventory-menu {
+        border-radius: 5px;
+        bottom: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        right: 0;
+        margin: 0;
+        border-top: 3px solid rgb(252, 219, 219);
+        background-color: white;
+        border-radius: 0;
+    }
+
+    .inventory-div {
+        display:grid;
+        grid-template-columns: 50% 25% 25%;
+    }
+
+    .inventory-item {
+        padding: 0px 10px;
+        text-align: center;
+    }
+
+
+    input[type="text" i] {
+        padding: 0;
+        width: 100%;
+        height: 40px;
+    }
+}
