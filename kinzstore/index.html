@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -34,31 +33,27 @@
             </form>
         </div>
     </section>
-
     
-    
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
 
-    <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyDf9H5OfSjz7MAPlytOJQNojN65xzsFQ9M",
-        authDomain: "kinzstore-51c68.firebaseapp.com",
-        projectId: "kinzstore-51c68",
-        storageBucket: "kinzstore-51c68.appspot.com",
-        messagingSenderId: "1030560301653",
-        appId: "1:1030560301653:web:ef4260e351e404d955cadc",
-        measurementId: "G-YX0TWNXTNV"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-      const db = firebase.firestore();
-      db.settings({ timestampsInSnapshots: true });
 
-    </script>   
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDf9H5OfSjz7MAPlytOJQNojN65xzsFQ9M",
+            authDomain: "kinzstore-51c68.firebaseapp.com",
+            projectId: "kinzstore-51c68",
+            storageBucket: "kinzstore-51c68.appspot.com",
+            messagingSenderId: "1030560301653",
+            appId: "1:1030560301653:web:ef4260e351e404d955cadc",
+            measurementId: "G-YX0TWNXTNV"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
     <script src="script.js"></script>
 </body>
 </html>
