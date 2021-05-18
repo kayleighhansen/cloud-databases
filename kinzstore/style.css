@@ -1,6 +1,6 @@
 
 
-h1, h2, h3, button, input, p {
+h1, h2, h3, h4, button, input, p, label, span {
     font-family: 'Recursive', sans-serif;
 }
 
@@ -47,9 +47,6 @@ button:hover {
     border-radius: 5px;
     display:flex;
     justify-content: center;
-
-    
-
 }
 
 .inventory-form {
