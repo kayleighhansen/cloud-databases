@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -21,37 +22,43 @@
     <section class="inventory">
         <h2>Store Inventory</h2>
         <div class="total-inventory">
-            <div class="inventory-item">
-                <h3 class="inventory-title">Sparkly Pink Hat</h3>
-                <div class="item-details">
-                    <p class="inventory-price">$20</p>
-                    <button class="delete">X</button>
-                </div>
-            </div>
-            <div class="inventory-item">
-                <h3 class="inventory-title">Sparkly Green Hat</h3>
-                <div class="item-details">
-                    <p class="inventory-price">$20</p>
-                    <button class="delete">X</button>
-                </div>
-            </div>
-            <div class="inventory-item">
-                <h3 class="inventory-title">Sparkly Black Hat</h3>
-                <div class="item-details">
-                    <p class="inventory-price">$20</p>
-                    <button class="delete">X</button>
-                </div>
-            </div>
+
         </div>
     </section>
     <section class="employee-tools">
         <div class="inventory-menu">
-            <div class="inventory-div">
+            <form class="inventory-form">
                 <input type="text">
                 <input type="text">
                 <button>Add</button>
-            </div>
+            </form>
         </div>
     </section>
+
+    
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyDf9H5OfSjz7MAPlytOJQNojN65xzsFQ9M",
+        authDomain: "kinzstore-51c68.firebaseapp.com",
+        projectId: "kinzstore-51c68",
+        storageBucket: "kinzstore-51c68.appspot.com",
+        messagingSenderId: "1030560301653",
+        appId: "1:1030560301653:web:ef4260e351e404d955cadc",
+        measurementId: "G-YX0TWNXTNV"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      const db = firebase.firestore();
+      db.settings({ timestampsInSnapshots: true });
+
+    </script>   
+    <script src="script.js"></script>
 </body>
 </html>
