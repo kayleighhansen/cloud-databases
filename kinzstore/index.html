@@ -17,7 +17,9 @@
     <header>
         <h1>Welcome Employee!</h1>
         <div class="employee-payment">
-            <span id="employee-wallet">Timer: </span><span id="minutes"></span>:<span id="seconds"></span>
+            <span id="employee-wallet">Timer: </span><span id="minutes"></span>:<span id="seconds"></span><br>
+            <button>Clock In</button>
+            <button>Clock Out</button>
             <h3 class="employee-wallet">Wallet: $0</h3>
         </div>
     </header>
@@ -30,11 +32,23 @@
     <section class="employee-tools">
         <div class="inventory-menu">
             <form class="inventory-form">
-                <label for="name">Item Name:</label>
-                <input type="text" name="name">
-                <label for="price">Item Price:</label>
-                <input type="text" price="price">
-                <button>Add</button>
+                <!-- <div>
+                    <label for="id">SKU Number:</label><br>
+                        <input type="id" name="id" class="newId"><br><br>
+                </div> -->
+                <div>
+                    <label for="name">Item Name:</label><br>
+                        <input type="name" name="name" class="newName"><br><br>
+                </div>
+                <div>
+                    <label for="price">Item Price:</label><br>
+                        <input type="price" name="price" class="newPrice"><br><br>
+                </div>
+                <!-- <div>
+                    <label for="type">Item Type:</label><br>
+                        <input type="type" name="type" class="newType"><br><br>
+                </div> -->
+                <button class="addNew">Add</button>
             </form>
         </div>
     </section>
