@@ -10,8 +10,12 @@ function renderInventory(doc){
     var detailsButton = document.createElement('button');
 
     price.setAttribute('class', 'price');
+
     deleteButton.setAttribute('class', 'delete');
+    deleteButton.setAttribute('id', 'deleteBtn');
+
     detailsButton.setAttribute('class', 'details');
+    detailsButton.setAttribute('id', 'detailsButton');
 
     deleteButton.innerHTML = "X";
     detailsButton.innerHTML = "See More";
@@ -27,6 +31,19 @@ function renderInventory(doc){
     inventoryItem.append(detailsButton);
     inventoryItem.append(deleteButton);
 
+
+
+    document.querySelectorAll('#deleteBtn').forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', event => { 
+            alert("Are you sure you want to delete?");
+        });
+    });
+
+    document.querySelectorAll('#detailsBtn').forEach(deleteBtn => {
+        deleteBtn.addEventListener('click', event => { 
+            console.log("details");
+        });
+    });
 
     inventoryItem.innerHTML += `</div>`;
 }
@@ -68,7 +85,8 @@ const addNew = document.querySelector(".addNew").addEventListener("click", funct
     };
 });
 
-// document.querySelectorAll('.delete').forEach(item => {
+
+
 //     item.addEventListener('click', event => { 
 //         console.log("delete");
 //     });
