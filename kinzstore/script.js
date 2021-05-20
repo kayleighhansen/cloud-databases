@@ -46,28 +46,33 @@ const addNew = document.querySelector(".addNew").addEventListener("click", funct
     var newPrice = document.querySelector(".newPrice").value;
     console.log(newPrice);
 
-    db.collection("clothes").add({
-        name: newName,
-        price: newPrice 
-    })
-    .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-        console.error("Error adding document: ", error);
-    });
+    if (newName == "" | newPrice == "") {
+        alert("Please fill out the entire form");
+    } else {    
+        document.querySelectorAll('.delete').forEach(item => {
+            item.addEventListener('click', event => { 
+                console.log("delete");
+            });  
+        });
 
+        db.collection("clothes").add({
+            name: newName,
+            price: newPrice 
+        })
+        .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+    };
 });
 
-
-const buttons = document.querySelectorAll(".delete");
-console.log(buttons);
-
-// for (var button of buttons) {
-//     button.addEventListener('click', function(event) {
+// document.querySelectorAll('.delete').forEach(item => {
+//     item.addEventListener('click', event => { 
 //         console.log("delete");
-//     })
-// };
+//     });
+// });
 
 var sec = 0;
     function pad ( val ) { return val > 9 ? val : "0" + val; }
@@ -76,3 +81,4 @@ var sec = 0;
         document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
     }, 1000);
 var seconds = document.querySelector('#seconds');
+
