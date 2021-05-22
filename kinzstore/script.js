@@ -3,8 +3,8 @@ const totalInventory = document.querySelector('.total-inventory');
 
 // renders all the inventory when called 
 function renderInventory(doc){
-    totalInventory.innerHTML += `<div class="inventory-item" id="${doc.id}">`;
-    const inventoryItem = document.querySelector('#' + doc.id);
+    totalInventory.innerHTML += `<div class="inventory-item" id="K${doc.id}">`;
+    const inventoryItem = document.querySelector('#K' + doc.id);
 
     // create all of the elements we will need for the individual inventory items
     var li = document.createElement('h4');
@@ -17,7 +17,7 @@ function renderInventory(doc){
     deleteButton.setAttribute('id', 'deleteBtn');
     detailsButton.setAttribute('id', 'detailsBtn');
     // the inventoryItem gets a special attribute, we will select each element by it's doc.id
-    inventoryItem.setAttribute('id', doc.id);
+    inventoryItem.setAttribute('id', 'K' + doc.id);
 
     // set the innerHTML of the buttons
     deleteButton.innerHTML = "X";
@@ -45,6 +45,8 @@ function renderInventory(doc){
 
                 // select the inventory Item by it's Id and delete
                 var id = e.target.parentElement.getAttribute('id');
+                // erase the K from the beginng of the id
+                id = id.substring(1);
                 db.collection('clothes').doc(id).delete();
             } else {
                 console.log("You pressed Cancel!");
@@ -61,13 +63,27 @@ function renderInventory(doc){
             inventory.innerHTML = "";
 
             // set the content for the details
-            const itemId = details.parentElement.id;
+            var itemId = details.parentElement.id;
+            itemId = itemId.substring(1);
             inventory.innerHTML  += `<h2>${itemId}</h2>`;
 
-            db.collection('clothes').get(itemId).then((snapshot) => {
-                // call the function that sets up the data by it's ID
-                renderItemDetails();
+            var itemDetails = db.collection("clothes").doc(itemId);
+
+            // get all of the data in the document
+            itemDetails.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
+
+                    
+
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
             });
+            
 
             // set the back button
             inventory.innerHTML += `<button id="backBtn">Back</button>`;
@@ -80,24 +96,25 @@ function renderInventory(doc){
         });
     });
 
-    // close the inventory div
+    // close the inventory item div
     inventoryItem.innerHTML += `</div>`;
 }
 
 // set the details page when called
-function renderItemDetails() {
-    console.log("yay");
+function renderItemDetails(doc) {
 
-    // TODO: finish this function
+    // select div
+    const inventoryItemDetails = document.querySelector('.inventory');
+
+    // create header 
+    var header = document.createElement('h4');
+
+    // set the data
+    header.textContent = doc.data().name;
+
+    // add header to the page
+    inventoryItemDetails.append(header);
 }
-
-
-// call the main function to set up the inventory div
-db.collection('clothes').get().then((snapshot) => {
-    snapshot.docs.forEach(doc => {
-        renderInventory(doc);
-    })
-});
 
 // add new items to the inventory
 const addNew = document.querySelector(".addNew").addEventListener("click", function(e) {
@@ -107,22 +124,20 @@ const addNew = document.querySelector(".addNew").addEventListener("click", funct
     // select the form feilds
     var newName = document.querySelector(".newName").value;
     var newPrice = document.querySelector(".newPrice").value;
+    var newType = document.querySelector(".newType").value;
+    var newColor = document.querySelector(".newColor").value;
     // TODO: add two new items in the form
 
     // make sure the form is filled out
-    if (newName == "" | newPrice == "") {
+    if (newName == "" | newPrice == "" | newType == "" | newColor == "") {
         alert("Please fill out the entire form");
     } else {    
-        document.querySelectorAll('.delete').forEach(item => {
-            item.addEventListener('click', event => { 
-                console.log("delete");
-            });  
-        });
-
         // if the form is filled out, add the items to the clothes database
         db.collection("clothes").add({
             name: newName,
-            price: newPrice 
+            price: newPrice,
+            type: newType,
+            color: newColor 
         })
         .then((docRef) => {
             // confirmation message
@@ -131,7 +146,7 @@ const addNew = document.querySelector(".addNew").addEventListener("click", funct
         .catch((error) => {
             // error message
             console.error("Error adding document: ", error);
-        });
+        });    
     };
 });
 
@@ -175,4 +190,16 @@ function clockOut(myTimer) {
     localStorage.setItem('wallet', wallet);
 }
 
-
+// real time listener 
+db.collection('clothes').onSnapshot(snapshot => {
+    var changes = snapshot.docChanges();
+    changes.forEach(change => {
+        if (change.type == 'added') {
+            renderInventory(change.doc);
+        } else if (change.type == 'removed') {
+            var li = document.querySelector(`#K${change.doc.id}`);
+            li.parentNode.removeChild(li);
+        }
+    })
+    console.log(changes);
+})
