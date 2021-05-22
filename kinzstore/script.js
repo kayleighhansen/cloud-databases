@@ -62,10 +62,12 @@ function renderInventory(doc){
             var inventory = document.querySelector(".inventory");
             inventory.innerHTML = "";
 
+            var employee = document.querySelector(".employee-tools");
+            employee.innerHTML = "";
+
             // set the content for the details
             var itemId = details.parentElement.id;
             itemId = itemId.substring(1);
-            inventory.innerHTML  += `<h2>${itemId}</h2>`;
 
             var itemDetails = db.collection("clothes").doc(itemId);
 
@@ -112,6 +114,20 @@ function renderItemDetails(doc) {
     var color = document.createElement('p');
     var type = document.createElement('p');
 
+    var formDiv = document.createElement('div');
+
+    formDiv.innerHTML += `<form class="formDiv">
+                            <label for="name">Item Name:</label><br>
+                                <input type="text" name="name" class="newName"><br><br>
+                            <label for="price">Item Price:</label><br>
+                                <input type="number" name="price" class="newPrice"><br><br>
+                            <label for="type">Item Type:</label><br>
+                                <input type="text" name="type" class="newType"><br><br>
+                            <label for="color">Item Color:</label><br>
+                                <input type="text" name="color" class="newColor"><br><br>
+                            <input type="submit" value="Update Item">
+                        </form>`;
+
     // set the data
     header.textContent = doc.data().name;
     price.textContent = doc.data().price;
@@ -120,7 +136,8 @@ function renderItemDetails(doc) {
 
 
     // add header to the page
-    inventoryItemDetails.append(header, price, color, type);
+    inventoryItemDetails.append(header, price, color, type, formDiv);
+
 }
 
 // add new items to the inventory
