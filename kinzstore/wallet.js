@@ -32,7 +32,7 @@ document.querySelector("#wallet-contents").innerHTML = wallet;
 
 // check localStorage to see how much money you have
 if (wallet) {
-    console.log("Wallet Retrieved from LocalStore");
+    console.log("Wallet Retrieved from LocalStorage");
 } else {
     console.log("Wallet Not Retrieved");
 }
