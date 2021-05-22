@@ -254,42 +254,4 @@ db.collection('clothes').onSnapshot(snapshot => {
     console.log(changes);
 })
 
-// set the functionality of the clock in button
-function clockIn() {
-    myTimer = setInterval(myClock, 1000);
-    var c = 0;
 
-    // starts the timer, increase one second at a time
-    function myClock() {
-        document.getElementById("demo").innerHTML = ++c;
-    }
-}
-
-// set the functionality of the clockout button
-function clockOut(myTimer) {
-    // stop the clock
-    clearInterval(myTimer);
-
-    // check to see how long you worked
-    var time = document.querySelector("#demo").innerHTML;
-
-    // set the contents of the wallet to reflect $1 every second of work
-    document.querySelector("#wallet-contents").innerHTML += time;
-
-    // TODO: fix this bug
-
-    // store wallet in localStorage
-    localStorage.setItem('wallet', wallet);
-}
-
-// set up the funationality of the wallet/timer
-var myTimer;
-var wallet = localStorage.getItem("wallet");
-var walletSpan = document.querySelector("#wallet-contents");
-
-// check localStorage to see how much money you have
-if (wallet) {
-    walletSpan.innerHTML = localStorage.getItem("wallet");
-} else {
-    walletSpan.innerHTML = 0;
-}
