@@ -70,12 +70,40 @@ input {
     font-size: 14px;
 }
 
+.employee-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.employee-tools {
+    margin: 30px;
+
+}
+
 .employee-payment {
     padding:10px 40px;
+    margin: 20px;
     background-color: white;
     border: 2px solid rgb(252, 219, 219);
     border-radius: 10px;
     box-shadow: 5px 10px 18px rgb(239, 239, 239);
+}
+
+.detailsHeader {
+    text-align: center;
+    font-size: 20px;
+}
+
+.detailsP {
+    margin-left: 30%;
+}
+
+.formDiv {
+    margin: 30px;
+}
+
+.update-header {
+    text-align: center;
 }
 
 .item-details {
@@ -88,6 +116,18 @@ input {
     border: 1px solid rgb(237, 237, 237);
     border-radius: 10px;
     margin: 10px;
+}
+
+.modifyForm {
+    display: flex;
+    justify-content: center;
+}
+
+.formDiv {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+
 }
 
 .delete {
@@ -108,6 +148,5 @@ input {
 }
 
 textarea {
-    border:none;
-
+    border: 1px solid rgb(237, 237, 237);
 }

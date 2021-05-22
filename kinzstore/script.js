@@ -69,13 +69,14 @@ function renderInventory(doc){
             var itemId = details.parentElement.id;
             itemId = itemId.substring(1);
 
+            // pull the right item from the database
             var itemDetails = db.collection("clothes").doc(itemId);
 
             // get all of the data in the document
             itemDetails.get().then((doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
-
+                    // call the function that builds the view
                     renderItemDetails(doc);
 
                 } else {
@@ -113,31 +114,78 @@ function renderItemDetails(doc) {
     var price = document.createElement('p');
     var color = document.createElement('p');
     var type = document.createElement('p');
+    var description = document.createElement('p');
 
     var formDiv = document.createElement('div');
 
     formDiv.innerHTML += `<form class="formDiv">
-                            <label for="name">Item Name:</label><br>
-                                <input type="text" name="name" class="newName"><br><br>
-                            <label for="price">Item Price:</label><br>
-                                <input type="number" name="price" class="newPrice"><br><br>
-                            <label for="type">Item Type:</label><br>
-                                <input type="text" name="type" class="newType"><br><br>
-                            <label for="color">Item Color:</label><br>
-                                <input type="text" name="color" class="newColor"><br><br>
-                            <input type="submit" value="Update Item">
+                            <h4 class="update-header">Update Item Information</h4>
+                            <label for="modname">Item Name:</label><br>
+                                <input type="text" name="modname" class="modName"><br><br>
+                            <label for="modprice">Item Price:</label><br>
+                                <input type="number" name="modprice" class="modPrice"><br><br>
+                            <label for="modtype">Item Type:</label><br>
+                                <input type="text" name="modtype" class="modType"><br><br>
+                            <label for="modcolor">Item Color:</label><br>
+                                <input type="text" name="modcolor" class="modColor"><br><br>
+                            <label for="moddescription">Item Description:</label><br>
+                                <textarea name="moddescription" class="modDescription" rows="4" cols="45"></textarea><br><br>
+                            <button class="modNew" value="Update Item"></button>
                         </form>`;
+
+    header.setAttribute('class', 'detailsHeader');
+    price.setAttribute('class', 'detailsP');
+    color.setAttribute('class', 'detailsP');
+    type.setAttribute('class', 'detailsP');
+    description.setAttribute('class', 'detailsP');
+
+    formDiv.setAttribute('class', 'modifyForm');
 
     // set the data
     header.textContent = doc.data().name;
     price.textContent = doc.data().price;
     color.textContent = doc.data().color;
     type.textContent = doc.data().type;
-
+    description.textContent = doc.data().description;
 
     // add header to the page
-    inventoryItemDetails.append(header, price, color, type, formDiv);
+    inventoryItemDetails.append(header, price, color, type, description, formDiv);
 
+    const modNew = document.querySelector(".modNew").addEventListener("click", function(e) {
+        e.preventDefault();
+
+        var modName = document.querySelector(".modName").value;
+        var modPrice = document.querySelector(".modPrice").value;
+        var modType = document.querySelector(".modType").value;
+        var modColor = document.querySelector(".modColor").value;
+        var modDescription = document.querySelector(".modDescription").value;
+
+        // make sure the form is filled out
+        if (modName == "" | modPrice == "" | modType == "" | modColor == "" | modDescription == "") {
+            alert("Please fill out the entire form");
+        } else {   
+            console.log(doc);
+            console.log(doc.id);
+            
+            // if the form is filled out, add the items to the clothes database
+            db.collection("clothes").doc(doc.id).update({
+                name: modName,
+                price: modPrice,
+                type: modType,
+                color: modColor,
+                description: modDescription 
+            })
+            .then(() => {
+                // confirmation message
+                console.log("Document updated!");
+                location.reload();
+            })
+            .catch((error) => {
+                // error message
+                console.error("Error adding document: ", error);
+            });    
+        };
+    });
 }
 
 // add new items to the inventory
@@ -150,10 +198,10 @@ const addNew = document.querySelector(".addNew").addEventListener("click", funct
     var newPrice = document.querySelector(".newPrice").value;
     var newType = document.querySelector(".newType").value;
     var newColor = document.querySelector(".newColor").value;
-    // TODO: add two new items in the form
+    var newDescription = document.querySelector(".newDescription").value;
 
     // make sure the form is filled out
-    if (newName == "" | newPrice == "" | newType == "" | newColor == "") {
+    if (newName == "" | newPrice == "" | newType == "" | newColor == "" | newDescription == "") {
         alert("Please fill out the entire form");
     } else {    
         // if the form is filled out, add the items to the clothes database
@@ -161,7 +209,8 @@ const addNew = document.querySelector(".addNew").addEventListener("click", funct
             name: newName,
             price: newPrice,
             type: newType,
-            color: newColor 
+            color: newColor,
+            description: newDescription 
         })
         .then((docRef) => {
             // confirmation message
@@ -174,17 +223,19 @@ const addNew = document.querySelector(".addNew").addEventListener("click", funct
     };
 });
 
-// set up the funationality of the wallet/timer
-var myTimer;
-var wallet = localStorage.getItem("wallet");
-var walletSpan = document.querySelector("#wallet-contents");
-
-// check localStorage to see how much money you have
-if (wallet) {
-    walletSpan.innerHTML = localStorage.getItem("wallet");
-} else {
-    walletSpan.innerHTML = 0;
-}
+// real time listener 
+db.collection('clothes').onSnapshot(snapshot => {
+    var changes = snapshot.docChanges();
+    changes.forEach(change => {
+        if (change.type == 'added') {
+            renderInventory(change.doc);
+        } else if (change.type == 'removed') {
+            var li = document.querySelector(`#K${change.doc.id}`);
+            li.parentNode.removeChild(li);
+        }
+    })
+    console.log(changes);
+})
 
 // set the functionality of the clock in button
 function clockIn() {
@@ -214,16 +265,16 @@ function clockOut(myTimer) {
     localStorage.setItem('wallet', wallet);
 }
 
-// real time listener 
-db.collection('clothes').onSnapshot(snapshot => {
-    var changes = snapshot.docChanges();
-    changes.forEach(change => {
-        if (change.type == 'added') {
-            renderInventory(change.doc);
-        } else if (change.type == 'removed') {
-            var li = document.querySelector(`#K${change.doc.id}`);
-            li.parentNode.removeChild(li);
-        }
-    })
-    console.log(changes);
-})
+
+
+// set up the funationality of the wallet/timer
+var myTimer;
+var wallet = localStorage.getItem("wallet");
+var walletSpan = document.querySelector("#wallet-contents");
+
+// check localStorage to see how much money you have
+if (wallet) {
+    walletSpan.innerHTML = localStorage.getItem("wallet");
+} else {
+    walletSpan.innerHTML = 0;
+}

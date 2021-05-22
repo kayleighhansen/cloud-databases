@@ -16,12 +16,7 @@
 <body>
     <header>
         <h1>Welcome Employee!</h1>
-        <div class="employee-payment">
-            <p id="demo">0</p>
-            <button onclick="clockIn(); document.getElementById('demo').innerHTML='0';">Clock In</button>
-            <button onclick="clockOut(myTimer);">Clock Out</button>
-            <h3 class="employee-wallet">Wallet: $<span id="wallet-contents"></span></h3>
-        </div>
+
     </header>
     <section class="inventory">
         <h2>Store Inventory</h2>
@@ -60,6 +55,12 @@
                 </div>
                 <button class="addNew">Add</button>
             </form>
+        </div>
+        <div class="employee-payment">
+            <p id="demo">0</p>
+            <button onclick="clockIn(); document.getElementById('demo').innerHTML='0';">Clock In</button>
+            <button onclick="clockOut(myTimer);">Clock Out</button>
+            <h3 class="employee-wallet">Wallet: $<span id="wallet-contents"></span></h3>
         </div>
     </section>
 
