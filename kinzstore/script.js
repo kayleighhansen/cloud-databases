@@ -74,7 +74,7 @@ function renderInventory(doc){
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
 
-                    
+                    renderItemDetails(doc);
 
                 } else {
                     // doc.data() will be undefined in this case
@@ -108,12 +108,19 @@ function renderItemDetails(doc) {
 
     // create header 
     var header = document.createElement('h4');
+    var price = document.createElement('p');
+    var color = document.createElement('p');
+    var type = document.createElement('p');
 
     // set the data
     header.textContent = doc.data().name;
+    price.textContent = doc.data().price;
+    color.textContent = doc.data().color;
+    type.textContent = doc.data().type;
+
 
     // add header to the page
-    inventoryItemDetails.append(header);
+    inventoryItemDetails.append(header, price, color, type);
 }
 
 // add new items to the inventory
