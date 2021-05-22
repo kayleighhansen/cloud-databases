@@ -130,7 +130,7 @@ function renderItemDetails(doc) {
                                 <input type="text" name="modcolor" class="modColor"><br><br>
                             <label for="moddescription">Item Description:</label><br>
                                 <textarea name="moddescription" class="modDescription" rows="4" cols="45"></textarea><br><br>
-                            <button class="modNew" value="Update Item"></button>
+                            <button class="modNew">Update Item</button>
                         </form>`;
 
     header.setAttribute('class', 'detailsHeader');
@@ -143,9 +143,9 @@ function renderItemDetails(doc) {
 
     // set the data
     header.textContent = doc.data().name;
-    price.textContent = doc.data().price;
-    color.textContent = doc.data().color;
-    type.textContent = doc.data().type;
+    price.textContent = "Price: $" + doc.data().price;
+    color.textContent = "Color:  " + doc.data().color;
+    type.textContent = "Type: " +doc.data().type;
     description.textContent = doc.data().description;
 
     // add header to the page
@@ -264,8 +264,6 @@ function clockOut(myTimer) {
     // store wallet in localStorage
     localStorage.setItem('wallet', wallet);
 }
-
-
 
 // set up the funationality of the wallet/timer
 var myTimer;

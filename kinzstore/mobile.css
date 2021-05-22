@@ -29,7 +29,6 @@
         padding-bottom: 30px;
         right: 0;
         margin: 0;
-        border-top: 3px solid rgb(252, 219, 219);
         background-color: white;
         border-radius: 0;
     }
@@ -45,13 +44,38 @@
     }
 
 
-    input[type="text" i] {
+    input[type="text" i], input[type="number" i] {
         padding: 0;
-        width: 100%;
         height: 40px;
+        width: 330px;
+    }
+
+    .employee-payment {
+        margin: 0px;
+    }
+
+    textarea {
+        border: 1px solid rgb(237, 237, 237);
+        margin: 10px;
+        padding: 0;
+    }
+
+    .addNew {
+        margin: 5% 15%;
     }
 
     .employee-tools {
         display: block;
+    }
+
+    .inventory-form {
+        display: block;
+        padding: 10px;
+    }
+
+    .inventory-form div {
+        padding: 0px;
+        text-align: center;
+        padding-top: 10px;
     }
 }
