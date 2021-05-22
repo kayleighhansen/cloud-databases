@@ -4,7 +4,7 @@ I recently recovered my old Webkinz account from 12 years ago and was so sad to 
 
 This version is the employee view as they add inventory to the store. The employee is paid hourly and can update or delete old inventory. 
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](http://youtu.be/I_ngDaH-S14?hd=1)
 
 # Cloud Database
 
