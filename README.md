@@ -16,7 +16,6 @@ I used VS Code as my programming environment. In order to create a detailed UI, 
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
 * [Net Ninja on Youtube](https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg)
 * [W3 Schools](https://www.w3schools.com/)
 * [Developer Mozilla](https://developer.mozilla.org/)
